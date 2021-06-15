@@ -130,11 +130,11 @@ class CRM_DonorSearch_Upgrader extends CRM_DonorSearch_Upgrader_Base {
 
     foreach ($names as $name) {
       if ($action == 'delete') {
-        $id = civicrm_api3('Navigation', 'getvalue', array(
+        $navigation = civicrm_api3('Navigation', 'get', array(
           'return' => "id",
           'name' => $name,
         ));
-        if ($id) {
+        if ($id = ($navigation['id'] ?? FALSE)) {
           civicrm_api3('Navigation', 'delete', array('id' => $id));
         }
       }
