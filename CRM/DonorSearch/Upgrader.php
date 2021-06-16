@@ -80,11 +80,11 @@ class CRM_DonorSearch_Upgrader extends CRM_DonorSearch_Upgrader_Base {
   public function uninstall() {
     self::changeNavigation('delete');
 
-    $customGroupID = civicrm_api3('custom_group', 'getvalue', array(
+    $customGroup = civicrm_api3('custom_group', 'get', array(
       'name' => 'DS_details',
       'return' => 'id',
     ));
-    if (!empty($customGroupID)) {
+    if ($customGroupID = ($customGroup['id'] ?? FALSE)) {
       foreach (CRM_DonorSearch_FieldInfo::getAttributes() as $param) {
         $customFieldID = civicrm_api3('custom_field', 'getvalue', array(
           'custom_group_id' => $customGroupID,
