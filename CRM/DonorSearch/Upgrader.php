@@ -99,7 +99,10 @@ class CRM_DonorSearch_Upgrader extends CRM_DonorSearch_Upgrader_Base {
     }
 
     // delete 'DonorSearch' cache
-    CRM_Core_BAO_Cache::deleteGroup('DonorSearch');
+    // NOTE: This code used to reference the now-defunct method CRM_Core_BAO_Cache::deleteGroup('DonorSearch').
+    // Such a call would cause a fatal error in current civicrm versions, therefore
+    // I'm removing it.
+    // TODO: Refactor caching in this extension, compatible with current civicrm methods.
 
     // delete DonorSearch API key
     Civi::settings()->revert('ds_api_key');
